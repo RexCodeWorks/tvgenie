@@ -1,24 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import searchMovies from './api';
+import Header from './components/Header';
+import MovieList from './components/MovieList';
+import no_image from './images/no_image.png';
 
 function App() {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [movies, setMovies] = useState([]);
+
+  const handleSearch = async (event) => {
+    event.preventDefault();
+    const results = await searchMovies(searchQuery);
+    setMovies(results);
+  }
+
+  const handleChange = (event) => {
+    setSearchQuery(event.target.value);
+  }
+
+  const handleImageError = (event) => {
+    event.target.src = no_image;
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <section className="hero is-fullheight">
+      <div className="hero-head">
+        <Header searchQuery={searchQuery} handleChange={handleChange} handleSearch={handleSearch} />
+      </div>
+      <div className="hero-body">
+        <div className="container">
+          {movies.length > 0 ? (
+            <MovieList movies={movies} handleImageError={handleImageError} />
+          ) : (
+            <p className="has-text-centered">No movies found.</p>
+          )}
+        </div>
+      </div>
+    </section>
   );
 }
 
