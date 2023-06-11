@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import searchMovies from './api';
 import Header from './components/Header';
 import MovieList from './components/MovieList';
+import MovieDetail from './components/MovieDetail';
 import no_image from './images/no_image.png';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [movies, setMovies] = useState([]);
+  const [selectedMovie, setSelectedMovie] = useState(null);
+
 
   const handleSearch = async (event) => {
     event.preventDefault();
@@ -22,6 +25,30 @@ function App() {
     event.target.src = no_image;
   };
 
+  const handleMovieSelect = (movie) => {
+    setSelectedMovie(movie);
+  };
+
+  const handleShowMovieDetail = (movie) => {
+    setSelectedMovie(movie);
+  };
+
+  const handleCloseMovieDetail = () => {
+    setSelectedMovie(null);
+  };
+
+  const conditionallyRenderMovieList = () => {
+    // Only render the movie list if no movie is selected
+    return selectedMovie ? null : (
+      <MovieList
+        movies={movies}
+        handleImageError={handleImageError}
+        handleMovieSelect={handleMovieSelect}
+        handleMovieClick={handleShowMovieDetail}
+      />
+    );
+  };
+
   return (
     <section className="hero is-fullheight">
       <div className="hero-head">
@@ -29,11 +56,10 @@ function App() {
       </div>
       <div className="hero-body">
         <div className="container">
-          {movies.length > 0 ? (
-            <MovieList movies={movies} handleImageError={handleImageError} />
-          ) : (
-            <p className="has-text-centered">No movies found.</p>
+          {selectedMovie && (
+            <MovieDetail movie={selectedMovie} onClose={handleCloseMovieDetail} />
           )}
+          {conditionallyRenderMovieList()}
         </div>
       </div>
     </section>

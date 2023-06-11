@@ -1,0 +1,90 @@
+.custom-checkbox {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    padding-left: 35px;
+    height: 25px;
+}
+
+.custom-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.custom-checkbox .checkbox-checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+
+.custom-checkbox:hover input~.checkbox-checkmark {
+    background-color: #ccc;
+}
+
+.custom-checkbox input:checked~.checkbox-checkmark {
+    background-color: #2196f3;
+}
+
+.custom-checkbox input:checked~.checkbox-checkmark:after {
+    display: block;
+}
+
+.custom-checkbox .checkbox-checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    content: "";
+    position: absolute;
+}
+
+.card-image {
+    position: relative;
+}
+
+.card-image .custom-checkbox {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.card-image .custom-checkbox input:checked~.checkbox-checkmark {
+    background-color: #2196f3;
+    border: 2px solid #2196f3;
+}
+
+.card-image .custom-checkbox .checkbox-checkmark {
+    border: 2px solid #333;
+    border-radius: 3px;
+}
+
+.card-image .custom-checkbox .checkbox-checkmark {
+    width: 25px;
+    height: 25px;
+}
+
+.button.is-danger {
+    color: #fff;
+    background-color: #dc3545;
+}
+
+.button.is-danger.is-small {
+    font-size: 14px;
+}
+
+.button.is-danger .icon {
+    margin-right: 8px;
+}
